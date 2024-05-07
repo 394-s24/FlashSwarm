@@ -1,3 +1,9 @@
+import * as React from 'react';
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+
 const NewSwarmModal = (/* props */) => {
   return (
     <form class="max-w-sm mx-auto">
@@ -16,6 +22,19 @@ const NewSwarmModal = (/* props */) => {
           required
         />
       </div>
+      
+     <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <div>
+          <TimePicker label="Basic time picker" />
+        </div>
+     </LocalizationProvider>
+
+     <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <div>
+          <TimePicker label="Basic time picker" />
+        </div>
+     </LocalizationProvider>
+
       <div class="mb-5">
         <label
           for="password"
