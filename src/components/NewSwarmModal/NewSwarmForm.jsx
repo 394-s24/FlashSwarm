@@ -4,67 +4,65 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 
 const NewSwarmForm = (/* props here */) => {
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <form class="max-w-sm mx-auto">
-        <div class="mb-5">
-          <label
-            for="description"
-            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Swarm Description
-          </label>
-          <input
-            type="text"
-            id="description"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Front-end work... etc."
-            required
-          />
-        </div>
-
-        <TimePicker class="bg-white" />
-
-        <TimePicker />
-
-        <div class="mb-5">
-          <label
-            for="password"
-            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Your password
-          </label>
-          <input
-            type="number"
-            id="password"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            required
-          />
-        </div>
-        <div class="flex items-start mb-5">
-          <div class="flex items-center h-5">
-            <input
-              id="remember"
-              type="checkbox"
-              value=""
-              class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
+    <div className="flex flex-column justify-center">
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <form className="max-w-lg mx-auto">
+          <div className="mb-5">
+            <label
+              htmlFor="description"
+              className="block mb-2 text-sm font-medium text-gray-900"
+            >
+              Swarm Description
+            </label>
+            <textarea
+              rows="4"
+              id="description"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              placeholder="Front-end work... etc."
               required
             />
           </div>
-          <label
-            for="remember"
-            class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+          <div className="mb-5">
+            <label
+              htmlFor="start"
+              className="block mb-2 text-sm font-medium text-gray-900"
+            >
+              Start Time
+            </label>
+            <TimePicker
+              renderInput={(props) => (
+                <input
+                  {...props}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                />
+              )}
+            />
+          </div>
+          <div className="mb-5">
+            <label
+              htmlFor="end"
+              className="block mb-2 text-sm font-medium text-gray-900"
+            >
+              End Time
+            </label>
+            <TimePicker
+              renderInput={(props) => (
+                <input
+                  {...props}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                />
+              )}
+            />
+          </div>
+          <button
+            type="submit"
+            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
           >
-            Remember me
-          </label>
-        </div>
-        <button
-          type="submit"
-          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-        >
-          Submit
-        </button>
-      </form>
-    </LocalizationProvider>
+            Submit
+          </button>
+        </form>
+      </LocalizationProvider>
+    </div>
   );
 };
 
