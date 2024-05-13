@@ -50,7 +50,27 @@ async function createSwarm(teamName, swarmData) {
   }
 }
 
-export { createSwarm };
+function getSwarms(teamName) {
+  const [data, setData] = useState();
+  const [error, setError] = useState(null);
+  const swarmRef = ref(db, `swarms/${teamName}`);
+  useEffect(
+    () =>
+      onValue(
+        swarmRef,
+        (snapshot) => {
+          setData(snapshot.val());
+        },
+        (error) => {
+          setError(error);
+        },
+      ),
+    [teamName],
+  );
+  return [data, error];
+}
+
+export { createSwarm, getSwarms };
 
 // async function setupUserPresence(course, userId, groupId) {
 //   const user = ref(db, `users/${userId}`);

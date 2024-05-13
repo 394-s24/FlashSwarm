@@ -1,9 +1,11 @@
 import NewSwarmModal from "./components/NewSwarmModal";
+import SwarmLog from "./components/SwarmLog";
 
 const App = () => {
   return (
     <div>
-      <NewSwarmModal />
+      <SwarmLog />
+      {/* <NewSwarmModal /> */}
     </div>
   );
 };
