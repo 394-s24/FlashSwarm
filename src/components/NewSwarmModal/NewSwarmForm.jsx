@@ -1,19 +1,30 @@
 import { useState } from "react";
+import dayjs from "dayjs";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 
-const NewSwarmForm = () => {
+import { createSwarm } from "../../utils/DatabaseFuncs";
 
-  const [desc, setDesc] = useState("");
+const NewSwarmForm = () => {
+  const [description, setDescription] = useState("");
   const [link, setLink] = useState("");
-  const [startTime, setStartTime] = useState(new Date());
-  const [endTime, setEndTime] = useState(new Date());
+  const [startTime, setStartTime] = useState(dayjs());
+  const [endTime, setEndTime] = useState(dayjs());
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(desc, link, startTime, endTime);
-  }
+    createSwarm("coral", {
+      description,
+      link,
+      startTime: startTime.toISOString(),
+      endTime: endTime.toISOString(),
+    });
+    setDescription("");
+    setLink("");
+    setStartTime(new Date());
+    setEndTime(new Date());
+  };
 
   return (
     <div className="h-screen flex items-center justify-center">
@@ -29,9 +40,10 @@ const NewSwarmForm = () => {
             <textarea
               rows="4"
               id="description"
+              value={description}
               className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               placeholder="Front-end work... etc."
-              onChange={(e) => setDesc(e.target.value)}
+              onChange={(e) => setDescription(e.target.value)}
               required
             />
           </div>
@@ -44,6 +56,7 @@ const NewSwarmForm = () => {
             </label>
             <input
               id="Link"
+              value={link}
               className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               placeholder="Link for Zoom, VSCode Liveshare, etc."
               onChange={(e) => setLink(e.target.value)}
@@ -57,9 +70,7 @@ const NewSwarmForm = () => {
               >
                 Start Time
               </label>
-              <TimePicker 
-                onChange={(newValue) => setStartTime(newValue)}
-              />
+              <TimePicker defaultValue={dayjs()} onChange={(newValue) => setStartTime(newValue)} />
             </div>
             <div className="ml-2">
               <label
@@ -68,9 +79,7 @@ const NewSwarmForm = () => {
               >
                 End Time
               </label>
-              <TimePicker 
-                onChange={(newValue) => setEndTime(newValue)}
-              />
+              <TimePicker defaultValue={dayjs()} onChange={(newValue) => setEndTime(newValue)} />
             </div>
           </div>
           <div className="flex justify-center">
