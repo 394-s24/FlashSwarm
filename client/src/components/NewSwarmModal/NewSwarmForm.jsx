@@ -4,7 +4,7 @@ import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 
-import { createSwarm } from "../../utils/DatabaseFuncs";
+import { createSwarm } from "../../../../utils/DatabaseFunc";
 
 const NewSwarmForm = () => {
   const [description, setDescription] = useState("");
@@ -12,18 +12,49 @@ const NewSwarmForm = () => {
   const [startTime, setStartTime] = useState(dayjs());
   const [endTime, setEndTime] = useState(dayjs());
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    createSwarm("coral", {
+
+    const swarmId = await createSwarm("coral", {
       description,
       link,
       startTime: startTime.toISOString(),
       endTime: endTime.toISOString(),
     });
+
     setDescription("");
     setLink("");
     setStartTime(new Date());
     setEndTime(new Date());
+
+    const data = {
+      description,
+      link,
+      startTime,
+      endTime,
+      swarmId,
+    };
+
+    console.log(data);
+
+    try {
+      const response = await fetch("http://localhost:3000/send-message", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (response.ok) {
+        const message = await response.text();
+        alert(message);
+      } else {
+        alert("Failed to send alert.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Error sending notification.");
+    }
   };
 
   return (
@@ -70,7 +101,10 @@ const NewSwarmForm = () => {
               >
                 Start Time
               </label>
-              <TimePicker defaultValue={dayjs()} onChange={(newValue) => setStartTime(newValue)} />
+              <TimePicker
+                defaultValue={dayjs()}
+                onChange={(newValue) => setStartTime(newValue)}
+              />
             </div>
             <div className="ml-2">
               <label
@@ -79,7 +113,10 @@ const NewSwarmForm = () => {
               >
                 End Time
               </label>
-              <TimePicker defaultValue={dayjs()} onChange={(newValue) => setEndTime(newValue)} />
+              <TimePicker
+                defaultValue={dayjs()}
+                onChange={(newValue) => setEndTime(newValue)}
+              />
             </div>
           </div>
           <div className="flex justify-center">

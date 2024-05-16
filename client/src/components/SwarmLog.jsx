@@ -1,4 +1,4 @@
-import { getSwarms } from "../utils/DatabaseFuncs";
+import { getSwarms } from "../../../utils/DatabaseFunc";
 
 const SwarmLog = () => {
   // console.log(getSwarms("coral"));
