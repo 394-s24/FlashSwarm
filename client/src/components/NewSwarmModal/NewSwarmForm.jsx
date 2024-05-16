@@ -1,19 +1,61 @@
 import { useState } from "react";
+import dayjs from "dayjs";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 
+import { createSwarm } from "../../../../utils/DatabaseFunc";
+
 const NewSwarmForm = () => {
-
-  const [desc, setDesc] = useState("");
+  const [description, setDescription] = useState("");
   const [link, setLink] = useState("");
-  const [startTime, setStartTime] = useState(new Date());
-  const [endTime, setEndTime] = useState(new Date());
+  const [startTime, setStartTime] = useState(dayjs());
+  const [endTime, setEndTime] = useState(dayjs());
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(desc, link, startTime, endTime);
-  }
+
+    const swarmId = await createSwarm("coral", {
+      description,
+      link,
+      startTime: startTime.toISOString(),
+      endTime: endTime.toISOString(),
+    });
+
+    setDescription("");
+    setLink("");
+    setStartTime(new Date());
+    setEndTime(new Date());
+
+    const data = {
+      description,
+      link,
+      startTime,
+      endTime,
+      swarmId,
+    };
+
+    console.log(data);
+
+    try {
+      const response = await fetch("http://localhost:3000/send-message", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (response.ok) {
+        const message = await response.text();
+        alert(message);
+      } else {
+        alert("Failed to send alert.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Error sending notification.");
+    }
+  };
 
   return (
     <div className="h-screen flex items-center justify-center">
@@ -29,9 +71,10 @@ const NewSwarmForm = () => {
             <textarea
               rows="4"
               id="description"
+              value={description}
               className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               placeholder="Front-end work... etc."
-              onChange={(e) => setDesc(e.target.value)}
+              onChange={(e) => setDescription(e.target.value)}
               required
             />
           </div>
@@ -44,6 +87,7 @@ const NewSwarmForm = () => {
             </label>
             <input
               id="Link"
+              value={link}
               className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               placeholder="Link for Zoom, VSCode Liveshare, etc."
               onChange={(e) => setLink(e.target.value)}
@@ -57,7 +101,8 @@ const NewSwarmForm = () => {
               >
                 Start Time
               </label>
-              <TimePicker 
+              <TimePicker
+                defaultValue={dayjs()}
                 onChange={(newValue) => setStartTime(newValue)}
               />
             </div>
@@ -68,7 +113,8 @@ const NewSwarmForm = () => {
               >
                 End Time
               </label>
-              <TimePicker 
+              <TimePicker
+                defaultValue={dayjs()}
                 onChange={(newValue) => setEndTime(newValue)}
               />
             </div>
