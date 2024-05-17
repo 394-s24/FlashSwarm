@@ -1,10 +1,14 @@
-import { getSwarms } from "../../../utils/DatabaseFunc";
+import { useDbData } from "../../../utils/DatabaseFunc";
 
 const SwarmLog = () => {
-  // console.log(getSwarms("coral"));
-  const [data, error] = getSwarms("coral");
+  const [data, error] = useDbData("coral");
+
   if (data === undefined) {
     return <h1>loading data</h1>;
+  }
+
+  if (error) {
+    return <div>Error loading data: {error.toString()}</div>;
   }
 
   const formatDate = (date) => {
@@ -43,25 +47,23 @@ const SwarmLog = () => {
     <div class="flex-col items-center justify-center m-10 text-sm font-medium text-gray-900 ">
       <h1>Swarm Log</h1>
       <div class="overflow-y-auto max-h-96">
-        {Object.values(data).map((e) => {
-          return (
-            <div key={e.id} class="p-3 m-2 border rounded-md">
-              <h1>Swarm Description: {e.description}</h1>
-              <h2>Start: {formatDate(new Date(e.startTime))}</h2>
-              <h2>End: {formatDate(new Date(e.endTime))}</h2>
-              <h2>Participants:</h2>
-              {e.usernames &&
-                Object.values(e.usernames).map((username) => {
-                  return (
-                    <h3 key={username} class="ml-2">
-                      @{username}
-                    </h3>
-                  );
-                })}
-              {!e.usernames && <h3 class="ml-2">No participants yet</h3>}
-            </div>
-          );
-        })}
+        {Object.values(data).map((swarm) => (
+          <div key={swarm.id} class="p-3 m-2 border rounded-md">
+            <h1>Swarm Description: {swarm.description}</h1>
+            <h2>Start: {formatDate(new Date(swarm.startTime))}</h2>
+            <h2>End: {formatDate(new Date(swarm.endTime))}</h2>
+            <h2>Participants:</h2>
+            {swarm.usernames &&
+              Object.values(swarm.usernames).map((username) => {
+                return (
+                  <h3 key={username.username} class="ml-2">
+                    @{username.username}
+                  </h3>
+                );
+              })}
+            {!swarm.usernames && <h3 class="ml-2">No participants yet</h3>}
+          </div>
+        ))}
       </div>
     </div>
   );

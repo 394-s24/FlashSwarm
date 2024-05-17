@@ -50,7 +50,7 @@ async function createSwarm(teamName, swarmData) {
   }
 }
 
-function getSwarms(teamName) {
+function useDbData(teamName) {
   const [data, setData] = useState();
   const [error, setError] = useState(null);
   const swarmRef = ref(db, `swarms/${teamName}`);
@@ -81,12 +81,15 @@ async function addToSwarm(teamName, swarmId, username) {
     // Check if username already exists
     if (usernames && Object.values(usernames).includes(username)) {
       console.error("Username already exists in the swarm.");
-      return; 
+      return;
     }
 
     // Push the new username if it doesn't exist
-    const newUserRef = await push(usernamesRef);
-    await set(newUserRef, username);
+    // const newUserRef = await push(usernamesRef);
+    // await set(newUserRef, username);
+    await set(ref(db, `swarms/${teamName}/${swarmId}/usernames/${username}`), {
+      username,
+    });
 
     console.log("Username added successfully!");
   } catch (error) {
@@ -94,7 +97,7 @@ async function addToSwarm(teamName, swarmId, username) {
   }
 }
 
-export { createSwarm, getSwarms, addToSwarm };
+export { createSwarm, useDbData, addToSwarm };
 
 // async function setupUserPresence(course, userId, groupId) {
 //   const user = ref(db, `users/${userId}`);
@@ -227,3 +230,4 @@ export { createSwarm, getSwarms, addToSwarm };
 //   firebaseSignOut,
 //   useAuthState,
 // };
+
