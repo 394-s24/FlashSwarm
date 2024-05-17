@@ -53,7 +53,9 @@ app.post('/send-message', async (req, res) => {
     .setColor(0x00FF00)
     .addFields(
         { name: 'Link', value: link, inline: true },
-        { name: 'Time', value: formatDateRange(new Date(startTime), new Date(endTime)), inline: false }
+        { name: 'Time', value: formatDateRange(new Date(startTime), new Date(endTime)), inline: false },
+        { name: 'Attendees', value: 'Currently no attendees', inline: true },
+        { name: 'NonAttendees', value: 'Currently no non-attendees', inline: true }
     )
     .setFooter({ text: 'Hi from team purple :)' })
 
@@ -62,16 +64,16 @@ app.post('/send-message', async (req, res) => {
         new ButtonBuilder()
             .setLabel('Join Swarm')
             .setStyle(ButtonStyle.Success)
-            .setCustomId(`yes_button-${swarmId}`),
+            .setCustomId(`yes_button/${swarmId}`),
         new ButtonBuilder()
             .setLabel('Not Available')
             .setStyle(ButtonStyle.Danger)
-            .setCustomId('no_button')
+            .setCustomId(`no_button/${swarmId}`)
     );
 
     const channel = await client.channels.fetch('1237244404981436466').catch(console.error);
     if (channel) {
-        channel.send({ content: '<@everyone>', embeds: [embed], components: [buttons] });
+        channel.send({ content: '<everyone>', embeds: [embed], components: [buttons] });
         res.status(200).send('Message sent!');
     } else {
         res.status(404).send('Channel not found.');
