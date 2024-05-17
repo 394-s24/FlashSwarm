@@ -79,7 +79,7 @@ async function addToSwarm(teamName, swarmId, username) {
     const usernames = snapshot.val();
 
     // Check if username already exists
-    if (usernames && Object.values(usernames).includes(username)) {
+    if (usernames && Object.keys(usernames).includes(username)) {
       console.error("Username already exists in the swarm.");
       return;
     }
@@ -97,7 +97,23 @@ async function addToSwarm(teamName, swarmId, username) {
   }
 }
 
-export { createSwarm, useDbData, addToSwarm };
+async function removeFromSwarm(teamName, swarmId, username) {
+  const usernamesRef = ref(db, `swarms/${teamName}/${swarmId}/usernames`);
+  
+  try {
+    const snapshot = await get(usernamesRef);
+    const usernames = snapshot.val();
+    // Check if username exists
+    if (usernames && Object.keys(usernames).includes(username)) {
+      await remove(usernamesRef);
+      console.log("Username removed successfully!");
+    }
+  } catch (error) {
+    console.error("The removal failed...", error);
+  }
+}
+
+export { createSwarm, useDbData, addToSwarm, removeFromSwarm };
 
 // async function setupUserPresence(course, userId, groupId) {
 //   const user = ref(db, `users/${userId}`);
