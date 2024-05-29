@@ -2,7 +2,7 @@
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
-import { client } from "./discordBot.js"; // Import your Discord client
+import { client, channelId } from "./discordBot.js"; // Import your Discord client
 import {
   GatewayIntentBits,
   EmbedBuilder,
@@ -98,7 +98,7 @@ app.post("/send-message", async (req, res) => {
   );
 
   const channel = await client.channels
-    .fetch("1237244404981436466")
+    .fetch(channelId)
     .catch(console.error);
   if (channel) {
     channel.send({

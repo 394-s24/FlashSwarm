@@ -105,7 +105,7 @@ async function removeFromSwarm(teamName, swarmId, username) {
     const usernames = snapshot.val();
     // Check if username exists
     if (usernames && Object.keys(usernames).includes(username)) {
-      await remove(usernamesRef);
+      await remove(ref(db, `swarms/${teamName}/${swarmId}/usernames/${username}`));
       console.log("Username removed successfully!");
     }
   } catch (error) {
