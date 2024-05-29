@@ -49,7 +49,7 @@ client.on("interactionCreate", async (interaction) => {
       // await interaction.reply(interaction.user.username);
       try {
         await addToSwarm("coral", swarmId, interaction.user.username); // Assume teamName is known or dynamically determined
-        // TODO: Edit the original message to display the updated list of users in the embed
+        
         const originalMessage = interaction.message;
 
         // Get the original embed
