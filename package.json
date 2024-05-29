@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev:client": "cd client && vite",
-    "build:client": "vite build",
+    "build:client": "cd client && vite build",
     "preview:client": "vite preview",
     "dev:server": "cd server && node src/app.js",
     "start:bot": "node server/src/discord_bot.js",
