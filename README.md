@@ -63,7 +63,7 @@ ______ _           _     _____
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](assets/bot.png)
+![image](https://github.com/394-s24/FlashSwarm/assets/60253050/4cf2d4c1-2a5c-4007-8530-64668648a1a4)
 
 FlashSwarm converts solo coding time into impromptu mini-swarms.
 
@@ -136,6 +136,8 @@ To get a local copy up and running follow these simple example steps.
 2. Setup the discord bot by pinging it in the channel you want to send notifications to
 
 3. Start a FlashSwarm using the web app
+
+![image](https://github.com/394-s24/FlashSwarm/assets/60253050/e6fefa6a-edab-4153-ba03-3c452d524f93)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
