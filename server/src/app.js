@@ -4,7 +4,6 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import { client, channelId } from "./discordBot.js"; // Import your Discord client
 import {
-  GatewayIntentBits,
   EmbedBuilder,
   ActionRowBuilder,
   ButtonBuilder,

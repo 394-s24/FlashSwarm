@@ -3,8 +3,6 @@ import {
   GatewayIntentBits,
   EmbedBuilder,
   ActionRowBuilder,
-  ButtonBuilder,
-  ButtonStyle,
 } from "discord.js";
 import dotenv from "dotenv";
 import { addToSwarm, removeFromSwarm } from "../../utils/DatabaseFunc.js";
