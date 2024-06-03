@@ -1,0 +1,21 @@
+{
+  "swarms": {
+    "coral": {
+      "-Nz1Faxp4iGlRENJArhO": {
+        "description": "Testing",
+        "endTime": "2024-05-29T04:51:01.904Z",
+        "id": "-Nz1Faxp4iGlRENJArhO",
+        "link": "http://localhost:5173/",
+        "startTime": "2024-05-29T03:51:01.904Z",
+        "usernames": {
+          "John Doe": {
+            "username": "tempuser1"
+          },
+          "Jane Doe": {
+            "username": "tempuser2"
+          }
+        }
+      }
+    }
+  }
+}

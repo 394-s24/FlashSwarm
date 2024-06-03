@@ -16,7 +16,8 @@ const client = new Client({
   ],
 });
 
-let channelId = "1237244404981436466";
+// pull channel id from .env
+let channelId = process.env.DISCORD_CHANNEL_ID;
 
 client.once("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`);

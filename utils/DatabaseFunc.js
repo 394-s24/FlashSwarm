@@ -15,13 +15,13 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCPLs7BVF3aTb7ccnhIJwSgHWw1etduwQw",
-  authDomain: "flashswarm-7563b.firebaseapp.com",
-  databaseURL: "https://flashswarm-7563b-default-rtdb.firebaseio.com",
-  projectId: "flashswarm-7563b",
-  storageBucket: "flashswarm-7563b.appspot.com",
-  messagingSenderId: "62969168098",
-  appId: "1:62969168098:web:7715fc4bec1a41b4109ebb",
+  apiKey: "",
+  authDomain: "",
+  databaseURL: "",
+  projectId: "",
+  storageBucket: "",
+  messagingSenderId: "",
+  appId: "",
 };
 
 // Initialize Firebase
